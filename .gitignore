@@ -1,0 +1,22 @@
+# Dependencies and build output
+node_modules/
+build/
+dist/
+
+# Secrets and local files
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.pfx
+
+# Nested repository and exported cloud templates
+.git/
+architecture.json
+
+# Logs / OS / editor
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
