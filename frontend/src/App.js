@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+﻿import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
@@ -8,7 +8,7 @@ function App() {
   const [health, setHealth] = useState('');
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
- const API_URL = process.env.REACT_APP_API_URL || 'http://20.40.148.233:5000'; // Docker
+ const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000'; // Docker
 
 
   useEffect(() => {

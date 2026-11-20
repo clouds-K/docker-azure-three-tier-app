@@ -1,18 +1,14 @@
-version: '3.8'
-
-services:
+﻿services:
   database:
     image: postgres:15-alpine
     container_name: tp-database
     environment:
-      POSTGRES_DB: myapp
-      POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ${POSTGRES_DB:-myapp}
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
     volumes:
       - postgres_data:/var/lib/postgresql/data
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
-    ports:
-      - "5432:5432"
     networks:
       - app-network
     healthcheck:
@@ -28,9 +24,9 @@ services:
     container_name: tp-backend
     environment:
       DB_HOST: database
-      DB_NAME: myapp
-      DB_USER: postgres
-      DB_PASSWORD: postgres
+      DB_NAME: ${POSTGRES_DB:-myapp}
+      DB_USER: ${POSTGRES_USER:-postgres}
+      DB_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       PORT: 5000
     ports:
       - "5000:5000"
@@ -45,9 +41,9 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      args:
+        REACT_APP_API_URL: ${REACT_APP_API_URL:-http://localhost:5000}
     container_name: tp-frontend
-    environment:
-      REACT_APP_API_URL: http://localhost:5000
     ports:
       - "3000:80"
     depends_on:
